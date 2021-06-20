@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import discord from "discord.js";
-import { greet, rule } from "./controllers.js";
+import { greet, joke, rule } from "./controllers.js";
 dotenv.config();
 const client = new discord.Client();
 
@@ -14,7 +14,7 @@ client.on("message", message => {
 	// get the message content
 	switch (command[0]) {
 
-		// greet the user if the person says hello
+		// greet the user if the person user hello
 		case "hello":
 			greet(message);
 			break;
@@ -23,6 +23,11 @@ client.on("message", message => {
 		case "rule":
 			const index = command[1]; // get the index of the rule	
 			rule(message, index); // display the rule according to the index
+			break;
+
+		// send a joke if the user asks for a joke
+		case "joke":
+			joke(message);
 			break;
 
 		default:
