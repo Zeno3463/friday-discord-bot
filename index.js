@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import discord from "discord.js";
-import { achievement, greet, joke, rule } from "./controllers.js";
+import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, revealTriviaAnswer, rule } from "./controllers.js";
 dotenv.config();
 const client = new discord.Client();
 
@@ -35,6 +35,19 @@ client.on("message", message => {
 			command.shift(); // remove the first element of the command
 			var ach = command; // get the rest of the elements of the command
 			achievement(message, ach);
+			break;
+
+		case "ans":
+			checkTriviaAnswer(message, command[1]);
+			break;
+
+		case "ansReveal":
+			revealTriviaAnswer(message);
+			break;
+
+		case "test":
+			generateTriviaQuestion(message);
+			break;
 
 		default:
 			break;
