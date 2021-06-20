@@ -45,3 +45,8 @@ export const joke = async (message) => {
 		message.channel.send(embed);
 	})
 }
+
+export const achievement = async (message, ach) => {
+	// send the achievement image to the user
+	message.channel.send(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
+}
