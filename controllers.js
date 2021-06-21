@@ -8,9 +8,10 @@ export const greet = async (message) => {
 		const embed = new discord.MessageEmbed()
 		.setColor("#F1EC40")
 		.setAuthor("Friday 2.0")
+		.setTitle(`Hello ${message.author.username}`)
 		.setDescription(res.data["content"]);
 	
-		message.channel.send(embed); // send the embed to the user
+		message.reply(embed); // send the embed to the user
 	})
 }
 
@@ -35,7 +36,7 @@ export const rule = async (message, ruleIndex) => {
 	.setDescription(ruleList[ruleIndex-1])
 
 	// send the embed to the user
-	message.channel.send(embed);
+	message.reply(embed);
 }
 
 export const joke = async (message) => {
@@ -50,18 +51,18 @@ export const joke = async (message) => {
 		.setDescription(res.data["punchline"])
 
 		// send the embed to the user
-		message.channel.send(embed);
+		message.reply(embed);
 	})
 }
 
 export const achievement = async (message, ach) => {
 	// send the achievement image to the user
-	message.channel.send(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
+	message.reply(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
 }
 
 export var triviaAnswer = "";
 
-export const generateTriviaQuestion = async (message) => {
+export const generateTriviaQuestion = async (client) => {
 	await axios.get("https://opentdb.com/api.php?amount=1")
 	.then(res => {
 
@@ -70,14 +71,15 @@ export const generateTriviaQuestion = async (message) => {
 		.setColor("#F1EC40")
 		.setAuthor("Friday 2.0")
 		.setTitle("Daily Trivia")
-		.setDescription(res.data["results"][0]["question"])
+		.setDescription(res.data["results"][0]["question"].split("&quot;").join('"'))
 		.addField("category", res.data["results"][0]["category"])
 		.addField("difficulty", res.data["results"][0]["difficulty"])
 
 		// update the answer variable to the answer of this question		
 		triviaAnswer = res.data["results"][0]["correct_answer"].split(" ");
 
-		message.channel.send(embed);
+		// send a trivia question to the selected channel
+		client.channels.cache.get("856092599165124617").send(embed);
 	})
 }
 

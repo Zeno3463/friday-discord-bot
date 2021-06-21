@@ -4,6 +4,25 @@ import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, re
 dotenv.config();
 const client = new discord.Client();
 
+const timeToSendTrivia1 = 7;
+const timeToSendTrivia2 = 9;
+var sentTrivia = false;
+
+// called every 1 minute
+setInterval(() => {
+	// if it is time to send trivia
+	if (new Date().getUTCHours() === timeToSendTrivia1 || new Date().getUTCHours() === timeToSendTrivia2){
+		// if the trivia has not been sent yet
+		if (!sentTrivia){
+			sentTrivia = true;
+			generateTriviaQuestion(client); // send the trivia
+		}
+	} else {
+		sentTrivia = false;
+	}
+}, 6000);
+
+// called when the user sent a message
 client.on("message", message => {
 
 	// don't execute the next line if the message is not a bot command
@@ -41,12 +60,12 @@ client.on("message", message => {
 			checkTriviaAnswer(message, command[1]);
 			break;
 
-		case "ansReveal":
-			revealTriviaAnswer(message);
+		case "trivia":
+			generateTriviaQuestion(client);
 			break;
 
-		case "test":
-			generateTriviaQuestion(message);
+		case "ansReveal":
+			revealTriviaAnswer(message);
 			break;
 
 		default:
