@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import discord from "discord.js";
-import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, revealTriviaAnswer, rule } from "./controllers.js";
+import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
 dotenv.config();
 const client = new discord.Client();
 
@@ -69,8 +69,13 @@ client.on("message", message => {
 			if (message.author.id === "715474608152772648") generateTriviaQuestion(client);
 			break;
 
+		// reveal the answer to the trivia question
 		case "ansReveal":
 			revealTriviaAnswer(message);
+			break;
+
+		case "pending_updates":
+			pendingUpdates(message);
 			break;
 
 		default:

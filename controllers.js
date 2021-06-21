@@ -1,5 +1,6 @@
 import axios from "axios"
 import discord from "discord.js";
+import { pendingUpdate } from "./pendingUpdate.js";
 
 export const greet = async (message) => {
 	await axios.get("https://api.quotable.io/random") // fetch data from the random quote api
@@ -125,4 +126,16 @@ export const revealTriviaAnswer = async (message) => {
 	if (message.author.id === "715474608152772648") {
 		message.author.send(triviaAnswer);
 	}
+}
+
+export const pendingUpdates = async (message) => {
+	
+	// wrap the congratulation message in an embed
+	const embed = new discord.MessageEmbed()
+	.setColor("#F1EC40")
+	.setAuthor("Friday 2.0")
+	.setTitle("Future Updates")
+	.addFields(pendingUpdate)
+
+	message.reply(embed);
 }
