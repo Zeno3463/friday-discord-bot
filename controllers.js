@@ -135,7 +135,7 @@ export const pendingUpdates = async (message) => {
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
 	.setTitle("Future Updates")
-	.addFields(pendingUpdate)
+	.addFields(...pendingUpdate)
 
 	message.reply(embed);
 }
