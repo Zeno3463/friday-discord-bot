@@ -56,12 +56,17 @@ client.on("message", message => {
 			achievement(message, ach);
 			break;
 
+		// check the answer if the user submits an answer to the daily trivia
 		case "ans":
-			checkTriviaAnswer(message, command[1]);
+			command.shift();
+			const answer = command.join(" ");
+			checkTriviaAnswer(message, answer);
 			break;
 
+		// generate a new trivia question
 		case "trivia":
-			generateTriviaQuestion(client);
+			// execute this code only if Zeno sends this command 
+			if (message.author.id === "715474608152772648") generateTriviaQuestion(client);
 			break;
 
 		case "ansReveal":
