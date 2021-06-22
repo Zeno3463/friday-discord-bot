@@ -1,6 +1,6 @@
 import axios from "axios"
 import discord from "discord.js";
-import { pendingUpdate } from "./pendingUpdate.js";
+import { pendingUpdate, ruleList } from "./globalVariables.js";
 
 export const greet = async (message) => {
 	await axios.get("https://api.quotable.io/random") // fetch data from the random quote api
@@ -17,17 +17,6 @@ export const greet = async (message) => {
 }
 
 export const rule = async (message, ruleIndex) => {
-	const ruleList = [
-		"Don't discuss religion or politics, except it's in a special scenario. If you do, keep it extremely respectful.",
-		"Don't post illegal, threatening, racist, sexist, NSFW, homophobic, or transphobic content.",
-		"Keep it kind of PG-13, because we might have some younger people here.",
-		"Please be nice and respectful to everybody.",
-		"Spam only at #😖spam ",
-		"Use @mentions wisely (you can use @🙋‍♂️Want Notifications instead of @everyone).",
-		"No caps unless it is really necessary.",
-		"Other common discord rules apply.",
-		"Common senses apply.",
-	];
 	
 	// wrap the rule according to the index in an embed
 	const embed = new discord.MessageEmbed()
@@ -136,6 +125,15 @@ export const pendingUpdates = async (message) => {
 	.setAuthor("Friday 2.0")
 	.setTitle("Future Updates")
 	.addFields(...pendingUpdate)
-
+	
 	message.reply(embed);
+}
+
+export const help = async (message) => {
+	// wrap the congratulation message in an embed
+	const embed = new discord.MessageEmbed()
+	.setColor("#F1EC40")
+	.setAuthor("Friday 2.0")
+	.setTitle("Future Updates")
+	.addFields()	
 }

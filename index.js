@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import discord from "discord.js";
 import * as http from "http";
 import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
+import { timeToSendTrivia1, timeToSendTrivia2, sentTrivia, changeSentTrivia } from "./globalVariables.js";
 dotenv.config();
 const client = new discord.Client();
 
@@ -11,21 +12,17 @@ http.createServer((req, res) => {
 	res.end();
 }).listen(3000 | process.env.PORT);
 
-const timeToSendTrivia1 = 7;
-const timeToSendTrivia2 = 9;
-var sentTrivia = false;
-
 // called every 1 minute
 setInterval(() => {
 	// if it is time to send trivia
 	if (new Date().getUTCHours() === timeToSendTrivia1 || new Date().getUTCHours() === timeToSendTrivia2){
 		// if the trivia has not been sent yet
 		if (!sentTrivia){
-			sentTrivia = true;
+			changeSentTrivia(true);
 			generateTriviaQuestion(client); // send the trivia
 		}
 	} else {
-		sentTrivia = false;
+		changeSentTrivia(false);
 	}
 }, 6000);
 
