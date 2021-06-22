@@ -1,7 +1,16 @@
+/* 
+Welcome to the source code of Friday 2.0!
+Friday 2.0 is a discord bot made in javascript using discord.js
+
+Date of Creation: 15th June 2021
+Author: Zeno
+Version: 2.0.0
+*/
+
 import dotenv from "dotenv";
 import discord from "discord.js";
 import * as http from "http";
-import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, help, invalidCommand, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
+import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, help, invalidCommand, joke, linkToCode, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
 import { timeToSendTrivia1, timeToSendTrivia2, sentTrivia, changeSentTrivia } from "./globalVariables.js";
 dotenv.config();
 const client = new discord.Client();
@@ -87,6 +96,12 @@ client.on("message", message => {
 		case "help":
 			help(message);
 			break;
+
+		// called when the user wants to check the source code of this bot
+		case "src_code":
+			linkToCode(message);
+			break;
+
 		// called when the command is not recognized
 		default:
 			invalidCommand(message);

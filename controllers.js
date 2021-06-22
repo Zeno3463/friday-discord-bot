@@ -1,6 +1,6 @@
 import axios from "axios"
 import discord from "discord.js";
-import { pendingUpdate, ruleList } from "./globalVariables.js";
+import { commands, pendingUpdate, ruleList, setTriviaAnswer, triviaAnswer } from "./globalVariables.js";
 
 export const greet = async (message) => {
 	await axios.get("https://api.quotable.io/random") // fetch data from the random quote api
@@ -50,8 +50,7 @@ export const achievement = async (message, ach) => {
 	message.channel.send(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
 }
 
-export var triviaAnswer = "";
-
+// only accessible by the admin of this bot
 export const generateTriviaQuestion = async (client) => {
 	await axios.get("https://opentdb.com/api.php?amount=1")
 	.then(res => {
@@ -72,7 +71,7 @@ export const generateTriviaQuestion = async (client) => {
 		.addField("answer choices", answerChoices.join("|"));
 
 		// update the answer variable to the answer of this question		
-		triviaAnswer = res.data["results"][0]["correct_answer"];
+		setTriviaAnswer(res.data["results"][0]["correct_answer"]);
 
 		// send a trivia question to the selected channel
 		client.channels.cache.get("856092599165124617").send(embed);
@@ -111,6 +110,7 @@ export const checkTriviaAnswer = async (message, userAnswer) => {
 	}
 }
 
+// only accessible by the admin of this bot
 export const revealTriviaAnswer = async (message) => {
 	if (message.author.id === "715474608152772648") {
 		message.author.send(triviaAnswer);
@@ -119,7 +119,7 @@ export const revealTriviaAnswer = async (message) => {
 
 export const pendingUpdates = async (message) => {
 	
-	// wrap the congratulation message in an embed
+	// wrap the pending updates in an embed
 	const embed = new discord.MessageEmbed()
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
@@ -130,26 +130,18 @@ export const pendingUpdates = async (message) => {
 }
 
 export const help = async (message) => {
-	// wrap the congratulation message in an embed
+	// wrap the list of available commands in an embed
 	const embed = new discord.MessageEmbed()
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
 	.setTitle("Friday 2.0 Commands")
-	.addFields(
-		{name: "$hello", value: "greet"},
-		{name: "$rule [index]", value: "get the rules of this server by index"},
-		{name: "$joke", value: "tell you a joke"},
-		{name: "$ach [achievement]", value: "create a minecraft achievement"},
-		{name: "$ans [answer]", value: "submit an answer to daily trivia"},
-		{name: "$pending_updates", value: "get all the possible future updates of this bot"},
-		{name: "$help", value: "shows you the list of all the commands"},
-		)
+	.addFields(...commands)
 		
-		message.reply(embed);
-	}
+	message.reply(embed);
+}
 	
 export const invalidCommand = async (message) => {
-	// wrap the congratulation message in an embed
+	// set up the invalid command embed
 	const embed = new discord.MessageEmbed()
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
@@ -157,4 +149,8 @@ export const invalidCommand = async (message) => {
 	.setDescription("unknown command, $help for help")
 
 	message.reply(embed);
+}
+
+export const linkToCode = async (message) => {
+	message.reply("https://github.com/Zeno3463/friday-discord-bot");
 }
