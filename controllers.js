@@ -139,7 +139,7 @@ export const invalidCommand = async (message) => {
 	const embed = new discord.MessageEmbed()
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
-	.setTitle("Future Updates")
+	.setTitle("Unknown Command")
 	.setDescription("unknown command, $help for help")
 
 	message.reply(embed);

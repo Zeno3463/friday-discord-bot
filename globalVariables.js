@@ -29,11 +29,7 @@ export const commands = [
 
 export const timeToSendTrivia1 = 7;
 export const timeToSendTrivia2 = 9;
-export const changeSentTrivia = (val) => {
-	sentTrivia = val;
-}
+export const changeSentTrivia = (val) => sentTrivia = val;
 export let sentTrivia = false;
-export const setTriviaAnswer = (val) => {
-	triviaAnswer = val;
-}
+export const setTriviaAnswer = (val) => triviaAnswer = val;
 export let triviaAnswer = "";
