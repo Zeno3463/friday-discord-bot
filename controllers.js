@@ -47,7 +47,7 @@ export const joke = async (message) => {
 
 export const achievement = async (message, ach) => {
 	// send the achievement image to the user
-	message.reply(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
+	message.channel.send(`https://minecraftskinstealer.com/achievement/${parseInt(Math.random() * 29)}/Achievement+Get%21/${ach.join("%20")}`); 
 }
 
 export var triviaAnswer = "";
@@ -124,7 +124,7 @@ export const pendingUpdates = async (message) => {
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
 	.setTitle("Future Updates")
-	.addFields(...pendingUpdate)
+	.addFields(...pendingUpdate)	
 	
 	message.reply(embed);
 }
@@ -143,7 +143,18 @@ export const help = async (message) => {
 		{name: "$ans [answer]", value: "submit an answer to daily trivia"},
 		{name: "$pending_updates", value: "get all the possible future updates of this bot"},
 		{name: "$help", value: "shows you the list of all the commands"},
-	)
+		)
+		
+		message.reply(embed);
+	}
 	
+export const invalidCommand = async (message) => {
+	// wrap the congratulation message in an embed
+	const embed = new discord.MessageEmbed()
+	.setColor("#F1EC40")
+	.setAuthor("Friday 2.0")
+	.setTitle("Future Updates")
+	.setDescription("unknown command, $help for help")
+
 	message.reply(embed);
 }

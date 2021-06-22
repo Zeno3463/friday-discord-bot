@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import discord from "discord.js";
 import * as http from "http";
-import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, help, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
+import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, help, invalidCommand, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
 import { timeToSendTrivia1, timeToSendTrivia2, sentTrivia, changeSentTrivia } from "./globalVariables.js";
 dotenv.config();
 const client = new discord.Client();
@@ -87,8 +87,9 @@ client.on("message", message => {
 		case "help":
 			help(message);
 			break;
-
+		// called when the command is not recognized
 		default:
+			invalidCommand(message);
 			break;
 	}
 })
