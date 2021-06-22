@@ -1,8 +1,15 @@
 import dotenv from "dotenv";
 import discord from "discord.js";
+import * as http from "http";
 import { achievement, checkTriviaAnswer, generateTriviaQuestion, greet, joke, pendingUpdates, revealTriviaAnswer, rule } from "./controllers.js";
 dotenv.config();
 const client = new discord.Client();
+
+http.createServer((req, res) => {
+	res.writeHead(200, {"content-type": "text/plain"});
+	res.write("welcome to the server of Friday 2.0");
+	res.end();
+}).listen(3000 | process.env.PORT);
 
 const timeToSendTrivia1 = 7;
 const timeToSendTrivia2 = 9;
