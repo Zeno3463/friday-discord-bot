@@ -15,6 +15,7 @@ import { timeToSendTrivia1, timeToSendTrivia2, sentTrivia, changeSentTrivia } fr
 dotenv.config();
 const client = new discord.Client();
 
+// create a server for the bot
 http.createServer((req, res) => {
 	res.writeHead(200, {"content-type": "text/plain"});
 	res.write("welcome to the server of Friday 2.0");
@@ -22,6 +23,7 @@ http.createServer((req, res) => {
 }).listen(3000 | process.env.PORT);
 
 // called every 1 minute
+// check if now is the time to send a trivia question
 setInterval(() => {
 	// if it is time to send trivia
 	if (new Date().getUTCHours() === timeToSendTrivia1 || new Date().getUTCHours() === timeToSendTrivia2){
