@@ -134,6 +134,16 @@ export const help = async (message) => {
 	const embed = new discord.MessageEmbed()
 	.setColor("#F1EC40")
 	.setAuthor("Friday 2.0")
-	.setTitle("Future Updates")
-	.addFields()	
+	.setTitle("Friday 2.0 Commands")
+	.addFields(
+		{name: "$hello", value: "greet"},
+		{name: "$rule [index]", value: "get the rules of this server by index"},
+		{name: "$joke", value: "tell you a joke"},
+		{name: "$ach [achievement]", value: "create a minecraft achievement"},
+		{name: "$ans [answer]", value: "submit an answer to daily trivia"},
+		{name: "$pending_updates", value: "get all the possible future updates of this bot"},
+		{name: "$help", value: "shows you the list of all the commands"},
+	)
+	
+	message.reply(embed);
 }
