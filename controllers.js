@@ -62,7 +62,7 @@ export const generateTriviaQuestion = async (client) => {
 		.setColor("#F1EC40")
 		.setAuthor("Friday 2.0")
 		.setTitle(res.data["results"][0]["question"].split("&quot;").join('"'))
-		.setDescription("you may guess and submit your answer by typing $ans [answer] in #riddle_answer")
+		.setDescription("you may guess and submit your answer by typing $ans [answer] in #trivia_answer")
 		.addField("category", res.data["results"][0]["category"])
 		.addField("difficulty", res.data["results"][0]["difficulty"])
 		.addField("answer choices", answerChoices.join("|"));
@@ -71,7 +71,7 @@ export const generateTriviaQuestion = async (client) => {
 		setTriviaAnswer(res.data["results"][0]["correct_answer"]);
 
 		// send a trivia question to the selected channel
-		client.channels.cache.get("856092599165124617").send(embed);
+		client.channels.cache.get(process.env.TRIVIA_CHANNEL_ID).send(embed);
 	})
 }
 
